@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from './game.module.css';
 
 
 const CHOICES = [
@@ -6,6 +7,29 @@ const CHOICES = [
   { name: "paper", emoji: "✋" },
   { name: "scissors", emoji: "✌️" },
 ];
+
+const choiceStyles = {
+  display: "flex",
+  alignItems: "center",
+  marginBottom: "40px"
+}
+
+const emojiStyles = {
+  fontSize: "64px",
+  marginRight: "20px"
+}
+
+const nameStyles = {
+  fontSize: "24px",
+  color: "#ffff",
+  margin: 0
+}
+
+const resultStyles = {
+  marginTop: "40px",
+  fontSize: "48px",
+  color: "#ffff"
+}
 
 export const Game = () => {
   const [playerChoice, setPlayerChoice] = useState(null);
@@ -36,31 +60,32 @@ export const Game = () => {
   }
 
   return (
-    <div>
-      <h1>Rock Paper Scissors</h1>
-      <div>
+    <div className={styles.container}>
+      <h1 style={{fontSize: 48, marginTop:0}}>Rock Paper Scissors</h1>
+      <div className={styles.choices}>
         {CHOICES.map((choice) => (
           <button
             key={choice.name}
             onClick={() => handlePlayerChoice(choice)}
             aria-label={choice.name}
+            className={styles.button}
           >
             {choice.emoji}
           </button>
         ))}
       </div>
       {playerChoice && codeyChoice && (
-        <div>
-          <div>
-            <span>{playerChoice.emoji}</span>
-            <p>You chose {playerChoice.name}</p>
+        <div className={styles.results}>
+          <div style={choiceStyles}>
+            <span style={emojiStyles}>{playerChoice.emoji}</span>
+            <p style={nameStyles}>You chose {playerChoice.name}</p>
           </div>
-          <div>
-            <span>{codeyChoice.emoji}</span>
-            <p>The computer chose {codeyChoice.name}</p>
+          <div style={choiceStyles}>
+            <span style={emojiStyles}>{codeyChoice.emoji}</span>
+            <p style={nameStyles}>The computer chose {codeyChoice.name}</p>
           </div>
-          <h2>{result}</h2>
-          <button onClick={resetGame}>Play again</button>
+          <h2 style={resultStyles}>{result}</h2>
+          <button className={styles.button} onClick={resetGame}>Play again</button>
         </div>
       )}
     </div>
